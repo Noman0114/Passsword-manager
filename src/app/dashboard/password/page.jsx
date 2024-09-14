@@ -42,11 +42,11 @@ export default function PassInfoPage() {
       const response = await fetch(`https://main--securepass.netlify.app/api/passdata/delete/${id}`, {
         method: 'DELETE',
       });
-  router.push('/dashboard');
       if (!response.ok) {
         throw new Error('Failed to delete password data');
       }
   
+  router.push('/dashboard');
       // Update the state to remove the deleted password from the list
       setPassData(passData.filter(pass => pass.id !== id));
     } catch (error) {
