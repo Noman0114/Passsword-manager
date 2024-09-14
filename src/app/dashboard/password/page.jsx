@@ -39,7 +39,7 @@ export default function PassInfoPage() {
     console.log(id);
     
     try {
-      const response = await fetch(`http://localhost:3000/api/passdata/delete/${id}`, {
+      const response = await fetch(`https://main--securepass.netlify.app/api/passdata/delete/${id}`, {
         method: 'DELETE',
       });
   router.push('/dashboard');
@@ -64,7 +64,7 @@ export default function PassInfoPage() {
     if (!editingPass) return
 
     try {
-      const response = await fetch(`http://localhost:3000/api/passdata/update/${editingPass.id}`, {
+      const response = await fetch(`https://main--securepass.netlify.app/api/passdata/update/${editingPass.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
