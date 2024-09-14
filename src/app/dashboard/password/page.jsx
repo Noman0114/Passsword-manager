@@ -39,7 +39,7 @@ export default function PassInfoPage() {
     console.log(id);
     
     try {
-      const response = await fetch(`https://main--securepass.netlify.app/api/passdata/delete/${id}`, {
+      const response = await fetch(`https://passsword-manager-three.vercel.app/api/passdata/delete/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
