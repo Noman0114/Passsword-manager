@@ -22,10 +22,7 @@ export default function PassInfoPage() {
 
   const fetchPassData = async () => {
     try {
-     // const response = await fetch('https://passsword-manager-three.vercel.app/api/passdata/getpass')
-       const res = await fetch('https://passsword-manager-three.vercel.app/api/passdata/getpass', {
-    cache: 'no-store', // ensures fresh data every time
-  });
+      const response = await fetch('/api/passdata/getpass')
       if (!response.ok) {
         throw new Error('Failed to fetch password data')
       }
@@ -42,14 +39,14 @@ export default function PassInfoPage() {
     console.log(id);
     
     try {
-      const response = await fetch(`https://passsword-manager-three.vercel.app/api/passdata/delete/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/passdata/delete/${id}`, {
         method: 'DELETE',
       });
+  router.push('/dashboard');
       if (!response.ok) {
         throw new Error('Failed to delete password data');
       }
   
-  router.push('/dashboard');
       // Update the state to remove the deleted password from the list
       setPassData(passData.filter(pass => pass.id !== id));
     } catch (error) {
@@ -67,7 +64,7 @@ export default function PassInfoPage() {
     if (!editingPass) return
 
     try {
-      const response = await fetch(`https://main--securepass.netlify.app/api/passdata/update/${editingPass.id}`, {
+      const response = await fetch(`http://localhost:3000/api/passdata/update/${editingPass.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
