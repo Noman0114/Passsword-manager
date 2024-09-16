@@ -22,7 +22,7 @@ export default function PassInfoPage() {
 
   const fetchPassData = async () => {
     try {
-      const response = await fetch('/api/passdata/getpass')
+      const response = await fetch('https://passsword-manager-three.vercel.app/api/passdata/getpass')
       if (!response.ok) {
         throw new Error('Failed to fetch password data')
       }
