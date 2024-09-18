@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 
-export function middleware(request) {
+export async function middleware(request) {
   const path = request.nextUrl.pathname;
   const isPublicPath = path === "/login" || path === "/signup";
-  const token = request.cookies.get('token')?.value || "";
+  
+  // Marking the cookie retrieval as asynchronous
+  const token = await request.cookies.get('token')?.value || "";
 
   console.log(`Path: ${path}, Token: ${token}`);
 
@@ -26,6 +28,5 @@ export const config = {
     "/login",
     "/signup",
     "/password",
-  
   ],
 };
