@@ -1,33 +1,52 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { LayoutDashboard, Key, LogOut, Menu } from 'lucide-react'
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { LayoutDashboard, Key, LogOut, Menu } from "lucide-react";
 
 export default function DashboardLayout({ children }) {
-  const router = useRouter()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const router = useRouter();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('/api/users/logout', { method: 'GET' })
+      const response = await fetch("/api/users/logout", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      });
       if (response.ok) {
-        router.push('/')
+        router.push("/");
+        console.log("Logout successful");
       } else {
-        console.error('Logout failed')
+        console.error("Logout failed");
       }
     } catch (error) {
-      console.error('Logout error:', error)
+      console.error("Logout error:", error);
     }
-  }
+  };
 
   const menuItems = [
-    { icon: <LayoutDashboard className="w-4 h-4" />, label: 'Dashboard', onClick: () => router.push('/dashboard') },
-    { icon: <Key className="w-4 h-4" />, label: 'Saved Passwords', onClick: () => router.push('/dashboard/password') },
-    { icon: <LogOut className="w-4 h-4" />, label: 'Logout', onClick: handleLogout },
-  ]
+    {
+      icon: <LayoutDashboard className="w-4 h-4" />,
+      label: "Dashboard",
+      onClick: () => router.push("/dashboard"),
+    },
+    {
+      icon: <Key className="w-4 h-4" />,
+      label: "Saved Passwords",
+      onClick: () => router.push("/dashboard/password"),
+    },
+    {
+      icon: <LogOut className="w-4 h-4" />,
+      label: "Logout",
+      onClick: handleLogout,
+    },
+  ];
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
@@ -42,8 +61,8 @@ export default function DashboardLayout({ children }) {
                 variant="ghost"
                 className="w-full justify-start"
                 onClick={() => {
-                  item.onClick()
-                  setIsMobileMenuOpen(false)
+                  item.onClick();
+                  setIsMobileMenuOpen(false);
                 }}
               >
                 {item.icon}
@@ -54,7 +73,7 @@ export default function DashboardLayout({ children }) {
         </ul>
       </nav>
     </div>
-  )
+  );
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -76,9 +95,7 @@ export default function DashboardLayout({ children }) {
       </Sheet>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-4">
-        {children}
-      </main>
+      <main className="flex-1 overflow-y-auto p-4">{children}</main>
     </div>
-  )
+  );
 }
