@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }) {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('/api/users/logout', { method: 'POST' })
+      const response = await fetch('/api/users/logout', { method: 'GET' })
       if (response.ok) {
         router.push('/')
       } else {
