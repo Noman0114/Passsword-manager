@@ -2,10 +2,10 @@ import { connect } from '@/dbConfig/dbConfig';
 import passData from '@/models/passModel';
 import { NextResponse } from 'next/server';
 
-connect();
-
+export const dynamic = 'force-dynamic'
 export async function GET() {
     try {
+connect();
         // Fetch all password data from the database
         const passwords = await passData.find({});
         return NextResponse.json(passwords); // Return the retrieved passwords
