@@ -1,13 +1,29 @@
 import { connect } from '@/dbConfig/dbConfig';
 import passData from '@/models/passModel';
 import { NextResponse } from 'next/server';
-
+import jwt from 'jsonwebtoken'; 
 export const dynamic = 'force-dynamic'
 export async function GET() {
     try {
 connect();
-        // Fetch all password data from the database
-        const passwords = await passData.find({});
+
+
+        
+   const token = req.cookies.get('token')?.value;
+
+        if (!token) {
+            return NextResponse.json({
+                error: 'Authentication token is missing.'
+            }, { status: 401 });
+        }
+
+        // Decode the token to get the user ID
+        const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+        const userId = decodedToken.id; // Assuming the token has 'id' field
+
+        // Fetch password data from the database for the logged-in user only
+        const passwords = await passData.find({ userId: userId });
+        
         return NextResponse.json(passwords); // Return the retrieved passwords
     } catch (error) {
         console.error('Error fetching passwords:', error.stack || error);
