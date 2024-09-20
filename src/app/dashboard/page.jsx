@@ -29,7 +29,7 @@ export default function AddPassword() {
 
     try {
       const response = await axios.post('/api/passdata/postPass', passInfo)
-      console.log(response.data)
+     
       setSuccessMessage('Password entry added successfully!')
       setTimeout(() => {
         router.push(`/dashboard/password`)
