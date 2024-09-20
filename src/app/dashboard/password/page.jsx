@@ -36,7 +36,7 @@ export default function PassInfoPage() {
   }
 
   const handleDelete = async (id) => {
-    console.log(id);
+  
     
     try {
       const response = await fetch(`/api/passdata/delete/${id}`, {
