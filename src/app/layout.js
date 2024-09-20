@@ -14,7 +14,7 @@ const geistMono = localFont({
 
 export const metadata = {
   title: "Password Manager",
-  description: "Password Manager to keep your password secure so you dont forgot,
+  description: "Password Manager to keep your password secure so you dont forgot.",
 };
 
 export default function RootLayout({ children }) {
