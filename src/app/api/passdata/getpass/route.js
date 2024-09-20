@@ -1,15 +1,14 @@
 import { connect } from '@/dbConfig/dbConfig';
 import passData from '@/models/passModel';
 import { NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken'; 
+import jwt from 'jsonwebtoken'; // Assuming you're using JWT for authentication
 export const dynamic = 'force-dynamic'
-export async function GET() {
+export async function GET(req) {
     try {
-connect();
+        connect();
 
-
-        
-   const token = req.cookies.get('token')?.value;
+        // Get the token from cookies
+        const token = req.cookies.get('token')?.value;
 
         if (!token) {
             return NextResponse.json({
@@ -23,7 +22,10 @@ connect();
 
         // Fetch password data from the database for the logged-in user only
         const passwords = await passData.find({ userId: userId });
+      
         
+      
+
         return NextResponse.json(passwords); // Return the retrieved passwords
     } catch (error) {
         console.error('Error fetching passwords:', error.stack || error);
